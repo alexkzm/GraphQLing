@@ -1,6 +1,7 @@
 const fetch = require('node-fetch')
 const util = require('util')
-util.promisify(require('xml2js').parseString)
+const DataLoader = require('dataloader')
+const parseXML = util.promisify(require('xml2js').parseString)
 const {
 	GraphQLSchema,
 	GraphQLObjectType,
@@ -9,21 +10,35 @@ const {
 	GraphQLList
 }
 
-fetch('')
-.then(response => response.text())
-.then(parseXML)
-
 const BookType = new GraphQLObjectType({
 	name: 'Book',
 	description: '...',
 	fields: () => ({
 		title: {
 			type: GraphQLString,
-			resolve: xml => xml.title[0]
+			args: {
+				lang: {type: GraphQLString}
+			},
+			resolve: (xml, args) => {
+				const title = xml.book[0].title[0]
+				return args.lang ? translate(args.lang, title) : title
+			}
+
 		},
 		isbn: {
-			type: GraphQLString
-			resolve: xml => xml.isbn[0]
+			type: GraphQLString,
+			resolve: xml => xml.book[0].isbn[0]
+		}
+		authors: {
+			type: GraphQLList(AuthorType),
+			resolve: (xml, args, context) => {
+				const authorElements = xml.book[0].authors[0].author
+				const ids = authorElements.map(elem => elem.id[0])
+				return Promise.all(ids.map(id =>
+					fetch(${id})
+					.then(response => respinse.text())
+					.then(parseXML)))
+			}
 		}
 	})
 })
