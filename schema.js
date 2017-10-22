@@ -41,7 +41,12 @@ const AuthorType = new GraphQLObjectType({
 		books: {
 			type: GraphQLList(BookType),
 			resolve: xml =>
-				xml.GoodreadsResponse.author[0].books[0].book
+				const ids = xml.GoodreadsResponse.author[0].books[0].book.map(elm => elm.id[0]._)
+				return Promise.all(ids.map(id =>
+					fetch ('')
+					.then(response => response.text()
+					.then(parseXML)
+				))
 		}
 	})
 })
@@ -57,6 +62,8 @@ module.exports = new GraphQLSchema({
 				  id: { type: GraphQLInt }
 				},
 				resolve: (root, args) => fetch()
+				.then(response => response.text())
+				.then(parseXML)
 			}
 		})
 	})
