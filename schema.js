@@ -1,7 +1,3 @@
-const fetch = require('node-fetch')
-const util = require('util')
-const DataLoader = require('dataloader')
-const parseXML = util.promisify(require('xml2js').parseString)
 const {
 	GraphQLSchema,
 	GraphQLObjectType,
@@ -76,7 +72,7 @@ module.exports = new GraphQLSchema({
 				args: {
 				  id: { type: GraphQLInt }
 				},
-				resolve: (root, args) => fetch()
+				resolve: (root, args, context) => fetch()
 				.then(response => response.text())
 				.then(parseXML)
 			}
