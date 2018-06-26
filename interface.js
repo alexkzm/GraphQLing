@@ -43,3 +43,28 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
 }
 
 const { combineReducers } = Redux
+
+const todoApp = combineReducers({
+    todos,
+    visibilityFilter
+})
+
+const { createStore } = Redux
+const store = createStore(todoApp)
+const { Component } = React
+
+const FilterButton = ({filter, currentFilter, children}) => {
+    if (filter === currentFilter) {
+        return React.createElement('span', {}, children)
+    }
+
+    return React.createElement('button', {
+        type: 'button',
+        onClick: (e) => {
+            store.dispatch({
+                type: 'SET_VISIBILITY_FILTER',
+                filter
+            })
+        }
+    }, children)
+}
