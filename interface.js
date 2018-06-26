@@ -69,7 +69,7 @@ const FilterButton = ({filter, currentFilter, children}) => {
     }, children)
 }
 
-const getVisibletodos = (todos, filter) => {
+const getVisibleTodos = (todos, filter) => {
     switch(filter) {
         case 'SHOW_ALL':
             return todos;
@@ -93,3 +93,46 @@ function addTodo(text) {
 addTodo('Hello')
 addTodo('Goodbye')
 addTodo('Lucky')
+
+class TodoApp extends Component {
+    componentDidMount() {
+        this.input = document.getElementById('input')
+    }
+    render() {
+        const {
+            todos,
+            visibilityFilter
+        } = this.props
+        const visibleTodos = getVisibleTodos(todos, visibilityFilter)
+        const todoElements = visibleTodos.map(todo => {
+            const toggle = () => {
+                store.dispatch({
+                    type: 'TOGGLE_TODO',
+                    id: todo.id
+                })
+            }
+
+            const up = () => {
+                store.dispatch({
+                    type: 'UP_TODO',
+                    id: todo.id
+                })
+            }
+
+            cost down = () => {
+                store.dispatch({
+                    type: 'DOWN_TODO',
+                    id: todo.id
+                })
+            }
+
+            return (
+                <li 
+                id=(todo.id)
+                style={{textDecoration: (todo.completed ? 'line-though': 'none')}}
+                >
+                </li>
+            )
+        })
+    }
+}
