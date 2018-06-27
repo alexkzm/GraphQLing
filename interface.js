@@ -119,7 +119,7 @@ class TodoApp extends Component {
                 })
             }
 
-            cost down = () => {
+            const down = () => {
                 store.dispatch({
                     type: 'DOWN_TODO',
                     id: todo.id
@@ -128,9 +128,13 @@ class TodoApp extends Component {
 
             return (
                 <li 
-                id=(todo.id)
+                id={todo.id}
                 style={{textDecoration: (todo.completed ? 'line-though': 'none')}}
                 >
+                {todo.id}: {todo.text}
+                <button onClick={toggle}>Toggle</button>
+                <button onClick={up}>Up</button>
+                <button onClick={down}>Down</button>
                 </li>
             )
         })
