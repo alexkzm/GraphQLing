@@ -28,6 +28,13 @@ const todos = (state = [], action) => {
         ];
       case 'TOGGLE_TODO':
         return state.map(t => todo(t, action))
+      case 'UP_TODO':
+        const duplicateState = state.slice()
+        const previousItem = duplicateState[action.index -1]
+        const itemToBeMoved = duplicateState[action.index]
+        duplicateState[action.id - 1] = itemToBeMove
+        duplicateState[action.id] = previousItem
+        return duplicateState
       default:
         return state
     }
