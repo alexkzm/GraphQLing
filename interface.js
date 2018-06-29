@@ -145,5 +145,40 @@ class TodoApp extends Component {
                 </li>
             )
         })
-    }
+
+return React.createElement('div', {}, [
+    React.createElement('h1', {}, 'Todos'),
+    React.createElement(
+        'form',
+        {
+            onSubmit: (e) => {
+                e.preventDefault()
+                addTodo(this.input.value)
+                this.input.value = ''
+            },
+            [
+                React.createElement('input', {id: 'input'}),
+                React.createElement('button', {type: 'submit'}, 'Add Todo')
+            ]
+        ),
+        React.createElement('ul', {}, todoElements),
+        React.createElement('p', {}, [
+            `Show: `
+            React.createElement(FilterButton, {filter: 'SHOW_ALL', currentFilter: visibilityFilter}, 'All'),
+            ` `,
+            React.createElement(FilterButton, {filter: 'SHOW_ACTIVE', currentFilter: visibilityFilter}, 'Active'),
+            ` `,
+            React.createElement(FilterButton, {filter: 'SHOW_COMPLETED', currentFilter: visibilityFilter}, 'Completed')
+        ])
+])
+
 }
+}
+
+const render = () => {
+    const TodoAppElement = React.createElement(TodoApp, store.getState())
+    ReactDOM.render(TodoAppElement, document.getElementById('root'))
+}
+render()
+
+store.subscribe(render)
