@@ -1,3 +1,5 @@
+import {Server} from "ws"
+
 const express = require('express')
 const graphqlHTTP = require('graphqlHTTP')
 const app = express()
@@ -36,3 +38,17 @@ app.use(/'graphql', graphqlHTTP(req => {
 }))
 
 app.listen(4000)
+
+const mySubject = new Subject()
+
+const {port} = httpServer.address()
+
+ws: WebSocket
+socketIsOpen = 1
+
+ngOnDestroy() {
+	this.closeSocket()
+}
+
+@Injectable()
+

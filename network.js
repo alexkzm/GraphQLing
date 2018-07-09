@@ -7,3 +7,4 @@ const validMove = move => state => state.moves[0].x + move.x != 0 || state.move[
 dropfirst
 
 IDBCursorWithValue()
+
