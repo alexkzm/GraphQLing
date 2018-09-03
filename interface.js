@@ -1,4 +1,11 @@
 export default class extends React.Component{
+    static async getInitialProps({req}) {
+        
+    }
+}
+
+
+export default class extends React.Component{
     constructor() {
         super()
         this.state = {
