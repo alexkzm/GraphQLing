@@ -1,3 +1,21 @@
+export default class extends React.Component{
+    constructor() {
+        super()
+        this.state = {
+            agensies: []
+        }
+    }
+    async componentDidMount() {
+        const response = await fetch('https://')
+        const agencies = await response.json()
+        this.setState({agencies: agencies})
+    }
+    render() {
+        return <div id="agencies">
+    }
+}
+
+
 const todo = (state, action) => {
     switch(action.type) {
         case 'ADD_TODO':
