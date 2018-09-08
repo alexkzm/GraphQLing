@@ -129,6 +129,12 @@ addTodo('Lucky')
 class TodoApp extends Component {
     componentDidMount() {
         this.input = document.getElementById('input')
+
+        super()
+        this.state = {}
+        this.state.pixels = [
+
+        ]
     }
     render() {
         const {
@@ -170,6 +176,8 @@ class TodoApp extends Component {
                 </li>
             )
         })
+
+export default App;
 
 return React.createElement('div', {}, [
     React.createElement('h1', {}, 'Todos'),
